@@ -1,0 +1,16 @@
+# Github actions workflow, install gperftools and run `make gperfheapprofile.test`
+name: gperftools
+on: [push, pull_request]
+jobs:
+  gperftools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gperftools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgoogle-perftools-dev
+
+      - name: Reproduce crash
+        run: |
+          make gperfheapprofile.test
